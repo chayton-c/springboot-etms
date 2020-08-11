@@ -37,8 +37,7 @@
                                         <a href="javascript:;" class="x-admin-backlog-body" style="background-color:rgb(154,217,234)">
                                             <h3 style="color: #fff">任务数量</h3>
                                             <p>
-                                                <cite style="color: #fff" th:text="${userLkjTask.totalTasks.size()
-                                                                    + userMeasurementTaskDetail.totalTasks.size()}">任务数</cite>
+                                                <cite style="color: #fff" th:text="${1}">任务数</cite>
                                             </p>
                                         </a>
                                     </li>
@@ -46,8 +45,7 @@
                                         <a href="javascript:;" class="x-admin-backlog-body" style="background-color:rgb(254,174,201)">
                                             <h3 style="color: #fff">完成任务</h3>
                                             <p>
-                                                <cite style="color: #fff" th:text="${userLkjTask.completeTasks.size()
-                                                                    + userMeasurementTaskDetail.completeTasks.size()}">完成任务数
+                                                <cite style="color: #fff" th:text="${2}">完成任务数
                                                 </cite>
                                             </p>
                                         </a>
@@ -56,8 +54,7 @@
                                         <a href="javascript:;" class="x-admin-backlog-body" style="background-color:rgb(112,146,191)">
                                             <h3 style="color: #fff">未完成任务</h3>
                                             <p>
-                                                <cite style="color: #fff" th:text="${userLkjTask.pendingHandleTasks.size()
-                                                                    + userMeasurementTaskDetail.pendingHandleTasks.size()}">
+                                                <cite style="color: #fff" th:text="${3}">
                                                     未完成任务数</cite>
                                             </p>
                                         </a>
@@ -67,9 +64,7 @@
                                             <h3 style="color: #fff">已关闭/拒绝</h3>
                                             <p>
                                                 <cite style="color: #fff"
-                                                        th:text="${userLkjTask.refusedTasks.size() + userLkjTask.closedTasks.size()
-                                                                    + userMeasurementTaskDetail.refusedTasks.size()
-                                                                    + userMeasurementTaskDetail.closedTasks.size()}">未完成任务数
+                                                        th:text="${4}">未完成任务数
                                                 </cite>
                                             </p>
                                         </a>
@@ -94,22 +89,22 @@
         <div class="layui-field-box">
             <table class="layui-table" lay-skin="line">
                 <tbody id="messageList">
-                <tr th:each="lkjTask, iterStat : ${userLkjTask.pendingHandleTasks}">
-                    <td>
-                        <a class="layui-btn layui-btn-sm layui-btn-normal" th:data-id='${lkjTask.id}'
-                           onclick="x_admin_show('任务详情', '/backstage/lkjTaskExecute/' + this.getAttribute('data-id') , 1500, 800)"
-                           target="_blank" th:text="${lkjTask.name + '，请按时完成！'}">未完成任务详情</a>
-                        <div></div>
-                    </td>
-                </tr>
-                <tr th:each="measurementTask, iterStat : ${userMeasurementTaskDetail.pendingHandleTasks}">
-                    <td>
-                        <a class="layui-btn layui-btn-sm layui-btn-normal"
-                           onclick="x_admin_show('任务详情', '/backstage/measurementTaskHandle' , 1500, 800)"
-                           target="_blank" th:text="${measurementTask.name + '，请按时完成！'}">未完成任务详情</a>
-                        <div></div>
-                    </td>
-                </tr>
+<!--                <tr th:each="lkjTask, iterStat : ${userLkjTask.pendingHandleTasks}">-->
+<!--                    <td>-->
+<!--                        <a class="layui-btn layui-btn-sm layui-btn-normal" th:data-id='${lkjTask.id}'-->
+<!--                           onclick="x_admin_show('任务详情', '/backstage/lkjTaskExecute/' + this.getAttribute('data-id') , 1500, 800)"-->
+<!--                           target="_blank" th:text="${lkjTask.name + '，请按时完成！'}">未完成任务详情</a>-->
+<!--                        <div></div>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr th:each="measurementTask, iterStat : ${userMeasurementTaskDetail.pendingHandleTasks}">-->
+<!--                    <td>-->
+<!--                        <a class="layui-btn layui-btn-sm layui-btn-normal"-->
+<!--                           onclick="x_admin_show('任务详情', '/backstage/measurementTaskHandle' , 1500, 800)"-->
+<!--                           target="_blank" th:text="${measurementTask.name + '，请按时完成！'}">未完成任务详情</a>-->
+<!--                        <div></div>-->
+<!--                    </td>-->
+<!--                </tr>-->
                 </tbody>
             </table>
         </div>
@@ -121,7 +116,7 @@
 <script>
     $(function() {
         hideMessages();
-        getPiesDataAndDraw();
+        // getPiesDataAndDraw();
     });
 
     function hideMessages() {
