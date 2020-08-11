@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <style type="text/css">
+        body, html, #allmap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+    </style>
+    <script type="text/javascript" src="/js/bmap-offline/map3.0_init.js"></script>
+    <script type="text/javascript" src="/js/bmap-offline/map3.0.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/util.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/bmap-offline/layer.js"></script>
+    <title>地图展示</title>
+</head>
+<body>
+<input type="hidden" id="deviceId" th:value="${deviceId}">
+<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+    let map;
+    let myIcon = new BMap.Icon('/images/pic/location.png', // 百度图片
+        new BMap.Size(10, 22), // 视窗大小
+        {
+            imageSize: new BMap.Size(144, 92), // 引用图片实际大小
+            imageOffset: new BMap.Size(-10, 0) // 图片相对视窗的偏移
+        });
+    $(function () {
+        initBmap();
+        getDeviceLocations($('#deviceId').val());
+    });
+
+    function getDeviceLocations(deviceId) {
+        $.ajax({
+            url: '/backstage/deviceLocation/getLocations',
+            type: 'post',
+            data: {
+                deviceId: deviceId
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (!result.success) {
+                    layer.msg(result.msg);
+                    return;
+                }
+
+                let bMapList = [];
+                let locations = result.obj;
+                for (let i = 0; i < locations.length; i++) {
+                    let location = locations[i];
+                    let bMapPoint = new BMap.Point(location.latitude, location.longitude);
+                    bMapList.push(bMapPoint);
+
+                    // 展示信息
+                    let marker = new BMap.Marker(bMapPoint, {
+                        icon: myIcon
+                    });
+                    map.addOverlay(marker);
+                    marker.addEventListener("mouseover", function () {
+                        showInfo(this, location);
+                    });
+                }
+
+                drawBmapLines(bMapList);
+            }
+        });
+    }
+
+    function initBmap() {
+        // 百度地图API功能
+        map = new BMap.Map("allmap");
+        map.enableScrollWheelZoom();
+    }
+
+    function drawBmapLines(bMapList, color) {
+        if (!color)
+            color = "blue";
+
+        map.centerAndZoom(bMapList[0], 18);
+
+        const polyline = new BMap.Polyline(
+            bMapList,
+            {strokeColor: color, strokeWeight: 5, strokeOpacity: 0.5}
+        );   //创建折线
+        map.addOverlay(polyline);   //增加折线
+    }
+
+
+    //点击轨迹点后显示信息窗口
+    function showInfo(thisMaker, location) {
+        const sContent =
+            "<ul style='margin:0 0 5px 0;padding:0.2em 0'>" +
+            "<li style='line-height: 26px;font-size: 15px;'>" +
+            "<span style='width: 50px;display: inline-block;'>经度：</span>" + location.longitude + "</li>" +
+            "<li style='line-height: 26px;font-size: 15px;'>" +
+            "<span style='width: 50px;display: inline-block;'>纬度：</span>" + location.latitude + "</li>" +
+            "<li style='line-height: 26px;font-size: 15px;'>" +
+            "<span style='width: 50px;display: inline-block;'>名称：</span>" + location.name + "</li>" +
+            "</ul>";
+        const infoWindow = new BMap.InfoWindow(sContent); // 创建信息窗口对象
+        thisMaker.openInfoWindow(infoWindow); //图片加载完毕重绘infowindow
+    }
+</script>
+<script type="text/javascript" src="/js/bmap-offline/demo.js"></script>

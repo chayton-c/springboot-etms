@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-L-admin1.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/xadmin.css">
+    <script type="text/javascript" src="/js/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/lib/layui/lay/modules/laypage.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/xadmin.js"></script>
+
+</head>
+
+<body class="layui-anim layui-anim-up">
+<div class="x-nav">
+    <a class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:38px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" id="backstage-device-form">
+            <!--/*@thymesVar id="page" type="com.yingda.lkj.beans.system.Page"*/-->
+            <input type="hidden" name="pageSize" th:value="${page.pageSize}"/>
+            <input type="hidden" name="currentPage"/>
+            <input type="hidden" name="deviceId" th:value="${deviceId}"/>
+
+            <input type="text"
+                   name="name" placeholder="请输入位置"
+                   autocomplete="off" class="layui-input" th:value="${name}">
+
+            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+    </div>
+    <xblock>
+        <button class="layui-btn"
+                th:data-deviceId="${deviceId}"
+                onclick="x_admin_show('添加路径','/backstage/deviceLocation/infoPage?deviceId=' + this.getAttribute('data-deviceId'), 1200, 750)">
+            <i class="layui-icon"></i>添加路径
+        </button>
+        <button class="layui-btn"
+                th:data-deviceId="${deviceId}"
+                onclick="x_admin_show('查看路径','/backstage/deviceLocation/deviceLocationMapPage?deviceId=' + this.getAttribute('data-deviceId'), 1200, 750)">
+            <i class="layui-icon"></i>查看路径
+        </button>
+    </xblock>
+    <table class="layui-table" lay-filter="akagi">
+        <thead>
+        <tr>
+            <th>
+                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>位置名称</th>
+            <th>经度</th>
+            <th>纬度</th>
+            <th>海拔</th>
+            <th>描述</th>
+            <th>备注</th>
+            <th>排序</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--/*@thymesVar id="deviceLocation" type="com.yingda.lkj.beans.entity.backstage.device.DeviceLocation"*/-->
+        <tr th:each="deviceLocation, iterstart : ${deviceLocations}">
+            <td>
+                <div class="layui-unselect layui-form-checkbox" lay-skin="primary"
+                     th:data-id='${deviceLocation.id}'>
+                    <i class="layui-icon">&#xe605;</i>
+                </div>
+            </td>
+            <td th:text="${deviceLocation.name}">位置名称</td>
+            <td th:text="${deviceLocation.longitude}">经度</td>
+            <td th:text="${deviceLocation.latitude}">纬度</td>
+            <td th:text="${deviceLocation.altitude}">海拔</td>
+            <td th:text="${deviceLocation.description}">描述</td>
+            <td th:text="${deviceLocation.remark}">备注</td>
+            <td><input type="text" th:data-id="${deviceLocation.id}" class="layui-input x-sort" name="order" oninput="updateSeq(this)"
+                       th:value="${deviceLocation.seq}"></td>
+            <td class="td-manage">
+                <a title="编辑"
+                   th:data-id="${deviceLocation.id}"
+                   th:deviceId="${deviceId}"
+                   class="layui-btn layui-btn-sm layui-btn-normal"
+                   onclick="x_admin_show(
+                            '编辑',
+                            '/backstage/deviceLocation/infoPage?deviceId=' + this.getAttribute('data-deviceId') + '&id=' + this.getAttribute('data-id'),
+                             1200, 750
+                         )"
+                   href="javascript:;">
+                    编辑
+                </a>
+                <a title="删除" th:data-id="${deviceLocation.id}" class="layui-btn layui-btn-sm layui-btn-normal"
+                   onclick="deleteItem(this.getAttribute('data-id'))"
+                   href="javascript:;">
+                    删除
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:include="/common/page::page('backstage-device-form')"></div>
+</div>
+<div id="qrcode" style="display:none"></div>
+<a id="download" download="qrcode.jpg" style="display:none"></a>
+<button id="save" style="display:none">save</button>
+<script th:inline="javascript">
+    layui.use(['form', 'upload'], function () {
+        const $ = layui.jquery
+            , upload = layui.upload;
+    });
+
+    function updateSeq(e) {
+        const id = $(e).attr('data-id');
+        const seq = $(e).val();
+
+        $.ajax({
+            url: '/backstage/deviceLocation/updateSeq',
+            type: 'get',
+            data: {
+                id: id,
+                seq: seq
+            },
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                if (!result.success) {
+                    alert(result.msg);
+                    return false;
+                }
+                // location.reload();
+            }
+        })
+    }
+
+    function deleteItem(id) {
+        layer.confirm('确认删除该路径吗？',function(index) {
+            $.ajax({
+                url: '/backstage/deviceLocation/delete?id=' + id,
+                type: 'post',
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result);
+                    if (!result.success) {
+                        alert(result.msg);
+                        return false;
+                    }
+
+                    layer.alert("提交成功", {icon: 6}, function () {
+                        location.reload();
+                    });
+                }
+            });
+        });
+    }
+</script>
+</body>
+
+</html>
