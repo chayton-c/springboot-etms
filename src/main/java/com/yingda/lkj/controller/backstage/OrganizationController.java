@@ -154,6 +154,4 @@ public class OrganizationController extends BaseController {
 
         return new ModelAndView("/backstage/organization/organization-info", Map.of("organization", organization));
     }
-
-
 }
