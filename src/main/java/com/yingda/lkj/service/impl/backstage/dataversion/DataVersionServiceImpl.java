@@ -2,7 +2,6 @@ package com.yingda.lkj.service.impl.backstage.dataversion;
 
 import com.yingda.lkj.beans.entity.backstage.dataversion.DataVersion;
 import com.yingda.lkj.beans.entity.backstage.dataversion.DataVersionUpdateDetail;
-import com.yingda.lkj.beans.entity.backstage.lkj.LkjDataLine;
 import com.yingda.lkj.beans.enums.dataversion.ApproveDataType;
 import com.yingda.lkj.beans.pojo.approvedata.VersionData;
 import com.yingda.lkj.dao.BaseDao;
@@ -11,14 +10,11 @@ import com.yingda.lkj.utils.StreamUtil;
 import com.yingda.lkj.utils.math.Arithmetic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author hood  2020/5/28

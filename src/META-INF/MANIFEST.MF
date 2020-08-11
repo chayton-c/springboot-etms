@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Main-Class: com.yingda.lkj.LkjApplication
+Main-Class: com.yingda.lkj.StartApplication
 Class-Path: thymeleaf-spring5-3.0.11.RELEASE.jar spring-tx-5.2.2.RELEASE
  .jar jakarta.activation-api-1.2.1.jar attoparser-2.0.5.RELEASE.jar gson
  -2.8.6.jar spring-data-jpa-2.2.3.RELEASE.jar antlr-2.7.7.jar commons-co

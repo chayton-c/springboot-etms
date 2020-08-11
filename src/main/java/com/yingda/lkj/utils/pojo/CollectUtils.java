@@ -1,12 +1,8 @@
 package com.yingda.lkj.utils.pojo;
 
-import com.yingda.lkj.beans.pojo.device.Semaphore;
-
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * @author hood  2019/12/24

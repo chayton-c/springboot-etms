@@ -1,10 +1,8 @@
 package com.yingda.lkj.service.impl.system;
 
-import com.yingda.lkj.beans.entity.backstage.measurement.MeasurementTaskExecuteUser;
 import com.yingda.lkj.beans.entity.system.User;
 import com.yingda.lkj.dao.BaseDao;
 import com.yingda.lkj.service.system.UserService;
-import com.yingda.lkj.utils.StreamUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

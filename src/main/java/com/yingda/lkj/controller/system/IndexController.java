@@ -5,8 +5,6 @@ import com.yingda.lkj.beans.entity.system.User;
 import com.yingda.lkj.beans.system.Json;
 import com.yingda.lkj.beans.system.JsonMessage;
 import com.yingda.lkj.controller.BaseController;
-import com.yingda.lkj.service.backstage.lkjtask.LkjTaskService;
-import com.yingda.lkj.service.backstage.measurement.MeasurementTaskService;
 import com.yingda.lkj.service.base.BaseService;
 import com.yingda.lkj.service.system.AuthService;
 import com.yingda.lkj.service.system.MenuService;
@@ -34,8 +32,6 @@ public class IndexController extends BaseController {
     private MenuService menuService;
     @Autowired
     private BaseService<Menu> menuBaseService;
-    @Autowired
-    private LkjTaskService lkjTaskService;
 
     @RequestMapping("/")
     public ModelAndView login() {

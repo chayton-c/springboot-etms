@@ -1,13 +1,7 @@
 package com.yingda.lkj.beans.enums.dataversion;
 
 import com.yingda.lkj.beans.entity.backstage.dataversion.DataApproveFlow;
-import com.yingda.lkj.beans.entity.backstage.lkj.LkjDataLine;
-import com.yingda.lkj.beans.entity.backstage.lkj.lkjextends.*;
 import com.yingda.lkj.beans.entity.system.User;
-import com.yingda.lkj.service.backstage.approvedataline.Lkj16Service;
-import com.yingda.lkj.service.backstage.approvedataline.Lkj18Service;
-import com.yingda.lkj.service.backstage.approvedataline.Lkj20Service;
-import com.yingda.lkj.service.backstage.lkjdataline.LkjDataLineService;
 import com.yingda.lkj.utils.SpringContextUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,23 +20,23 @@ public enum ApproveDataType {
             "forward:/backstage/lkjApproveUpdate/lkjApproveFlowDetail") {
         @Override
         public void createDataLines(DataApproveFlow dataApproveFlow, List<?> rawDataLines) {
-            LkjDataLineService lkjDataLineService = (LkjDataLineService) SpringContextUtil.getBean("lkjDataLineService");
+            User lkjDataLineService = (User) SpringContextUtil.getBean("lkjDataLineService");
             List<User> rawLkjDataLines = new ArrayList<>();
             for (Object rawDataLine : rawDataLines)
                 rawLkjDataLines.add((User) rawDataLine);
-            lkjDataLineService.createLkjDataLine(dataApproveFlow, rawLkjDataLines);
+//            lkjDataLineService.createLkjDataLine(dataApproveFlow, rawLkjDataLines);
         }
 
         @Override
         public void completeDataLines(DataApproveFlow dataApproveFlow) {
-            LkjDataLineService lkjDataLineService = (LkjDataLineService) SpringContextUtil.getBean("lkjDataLineService");
-            lkjDataLineService.completeLkjDataLine(dataApproveFlow);
+//            LkjDataLineService lkjDataLineService = (LkjDataLineService) SpringContextUtil.getBean("lkjDataLineService");
+//            lkjDataLineService.completeLkjDataLine(dataApproveFlow);
         }
 
         @Override
         public void refuseDataLines(DataApproveFlow dataApproveFlow) {
-            LkjDataLineService lkjDataLineService = (LkjDataLineService) SpringContextUtil.getBean("lkjDataLineService");
-            lkjDataLineService.refuseLkjDataLines(dataApproveFlow);
+//            LkjDataLineService lkjDataLineService = (LkjDataLineService) SpringContextUtil.getBean("lkjDataLineService");
+//            lkjDataLineService.refuseLkjDataLines(dataApproveFlow);
         }
     }
     ;

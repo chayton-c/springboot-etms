@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Main-Class: com.yingda.lkj.LkjApplication
+Main-Class: com.yingda.lkj.StartApplication
 Class-Path: logback-classic-1.2.3.jar jaxb-runtime-2.3.2.jar jackson-mod
  ule-parameter-names-2.10.1.jar logback-core-1.2.3.jar spring-messaging-
  5.2.2.RELEASE.jar spring-boot-starter-websocket-2.2.2.RELEASE.jar jacks

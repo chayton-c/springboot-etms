@@ -1,9 +1,6 @@
 package com.yingda.lkj.beans.entity.backstage.organization;
 
-import com.yingda.lkj.beans.entity.backstage.line.RailwayLine;
-
 import javax.persistence.*;
-import javax.sound.sampled.Line;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +41,6 @@ public class Organization {
     private List<Organization> organizationList = new ArrayList<>(); // 下级
     private boolean hasSlave; // 是否有下级
     private boolean checked; // 是否被勾选
-
-    //eggk page field
-    private List<RailwayLine> railwayLineList;
 
     @Id
     @Column(name = "id", nullable = false, length = 36)
@@ -164,24 +158,6 @@ public class Organization {
 
     public void setHasSlave(boolean hasSlave) {
         this.hasSlave = hasSlave;
-    }
-
-    @Transient
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
-
-    @Transient
-    public List<RailwayLine> getRailwayLineList() {
-        return railwayLineList;
-    }
-
-    public void setRailwayLineList(List<RailwayLine> railwayLineList) {
-        this.railwayLineList = railwayLineList;
     }
 
     @Override
