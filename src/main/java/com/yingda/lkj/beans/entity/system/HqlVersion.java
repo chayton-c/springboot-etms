@@ -9,7 +9,7 @@ import java.util.UUID;
  * @author hood  2020/6/1
  */
 @Entity
-@Table(name = "hql_version", schema = "illustrious", catalog = "")
+@Table(name = "hql_version")
 public class HqlVersion {
     private String id;
     private String hqlVersion;

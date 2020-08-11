@@ -14,7 +14,7 @@ import java.util.UUID;
  * @author hood  2020/5/26
  */
 @Entity
-@Table(name = "data_version", schema = "illustrious", catalog = "")
+@Table(name = "data_version")
 public class DataVersion {
     // type字段
     public static final byte INTERIM_VERSION = 0; // 临时版本(每次修改lkj时都会生成新的临时版本)

@@ -10,7 +10,7 @@ import java.util.UUID;
  * @author hood  2020/5/26
  */
 @Entity
-@Table(name = "data_approve_config", schema = "illustrious", catalog = "")
+@Table(name = "data_approve_config")
 public class DataApproveConfig {
     private String id;
     private String sectionId;

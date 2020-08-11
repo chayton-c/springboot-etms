@@ -11,7 +11,7 @@ import java.util.UUID;
  * @author hood  2020/5/26
  */
 @Entity
-@Table(name = "data_approve_node", schema = "illustrious", catalog = "")
+@Table(name = "data_approve_node")
 public class DataApproveNode {
     // userApproveStatus字段
     public static final byte PENDING_REVIEW = 0; // 待审核的

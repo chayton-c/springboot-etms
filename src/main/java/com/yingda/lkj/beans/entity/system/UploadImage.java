@@ -10,7 +10,7 @@ import java.util.Objects;
  * @author hood  2020/6/28
  */
 @Entity
-@Table(name = "upload_image", schema = "illustrious", catalog = "")
+@Table(name = "upload_image")
 public class UploadImage {
     private String id;
     private String url;

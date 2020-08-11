@@ -15,7 +15,7 @@ import java.util.UUID;
  * @author hood  2020/5/26
  */
 @Entity
-@Table(name = "data_version_update_detail", schema = "illustrious", catalog = "")
+@Table(name = "data_version_update_detail")
 public class DataVersionUpdateDetail {
     // operationType字段
     public static final byte UPDATE = 0; // 修改

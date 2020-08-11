@@ -16,7 +16,7 @@ import java.util.UUID;
  * @author hood  2020/5/26
  */
 @Entity
-@Table(name = "data_approve_flow", schema = "illustrious", catalog = "")
+@Table(name = "data_approve_flow")
 public class DataApproveFlow {
 
     // approveStatus字段
