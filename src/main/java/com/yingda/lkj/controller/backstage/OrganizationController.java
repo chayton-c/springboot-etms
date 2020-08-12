@@ -141,7 +141,7 @@ public class OrganizationController extends BaseController {
 
         // 默认编号
         if (organization.getLevel() != Organization.BUREAU && organization.getCode() == null)
-            organization.setCode("fff");
+            organization.setCode("ff");
 
         if (organization.getLevel() == Organization.SECTION) {
             List<DataApproveConfig> dataApproveList = dataApproveConfigService.getDataApproveConfigList(Optional.ofNullable(id).orElse(""));
